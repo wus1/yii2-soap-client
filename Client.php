@@ -17,7 +17,7 @@ use yii\base\InvalidConfigException;
 class Client extends Component
 {
     /**
-     * @var string $url the URL of the WSDL file.
+     * @var string $url the URL of the WSDL file or null if non-wsdl.
      */
     public $url;
     /**
@@ -37,9 +37,6 @@ class Client extends Component
     public function init()
     {
         parent::init();
-        if ($this->url === null) {
-            throw new InvalidConfigException('The "url" property must be set.');
-        }
         try {
             $this->_client = new SoapClient($this->url, $this->options);
         } catch (SoapFault $e) {
